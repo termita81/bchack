@@ -1,16 +1,32 @@
 
-<div class="container ">
-        
-    <h3>Welcome to </br><span>OurSpace</span><h3>
-    <h5>Please Sign In</h5>
+<div class="transaction container theme-showcase">
 
-    <form>
-    <input type="text" name="email" value="" ng-model="signin.email" placeholder="E-mail"></br>
-    <!-- <input type="password" name="password" value="" placeholder="Password"></br> -->
-    <button type="button"
-        ng-click="signin.signIn()">Sign In</button>
-    </form>
+    <h1>My Transactions</h1>
 
-    <a href="#!signup">Create a New Account</a>
-
+    <table>
+      <tr>
+        <th>Transaction</br>ID</th>
+        <th>Date</th>
+        <th>User</th>
+        <th>Status</th>
+      </tr>
+      <tr>
+        <td>0001</td>
+        <td>20-01-17</td>
+        <td>Mike</td>
+        <td><div>Accepted</div></td>
+      </tr>
+      <tr>
+        <td>0002</td>
+        <td>28-01-17</td>
+        <td>Jane</td>
+        <td><div>Declined</div></td>
+      </tr>
+      <tr>
+        <td>0003</td>
+        <td>02-04-17</td>
+        <td>Paul</td>
+        <td><div>Pending</div></td>
+      </tr>
+    </table>
 </div>

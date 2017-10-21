@@ -12,7 +12,7 @@ a {
 }
 
 /* */
-/* Sign up Page CSS */
+/* Sign In Page CSS */
 
 .sign-up {
     margin: 0 auto;
@@ -79,7 +79,6 @@ option {
 
 .search-result > ul > div {
     width: 220px;
-    /* height: 400px; */
     border: 1px solid black;
     border-radius: 10px;
     padding: 10px;
@@ -98,6 +97,26 @@ option {
 
 .search-result > ul > div > button {
     margin-top: 0px;
+}
+
+/* */
+/* Transaction Page CSS */
+
+.transaction {
+    color: white;
+    width: 100%;
+}
+
+.transaction > th {
+    text-align: center;
+}
+
+.transaction > th, td {
+    padding-right: 25px;
+}
+
+.transaction > div {
+    background-color: #eff0f4;
 }
 
 /* */
