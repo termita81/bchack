@@ -44,67 +44,54 @@ angular.module('library', ['ngRoute'])
 //  };
 // })
 
-.config(function($routeProvider) {
+.config(function($routeProvider, $locationProvider) {
 //  var resolveProjects = {
 //    projects: function (Projects) {
 //      return Projects.fetch();
 //    }
 //  };
 
+$locationProvider.hashPrefix('!');
+var itemsList = [];
  $routeProvider
-  //  .when('/', {
-  //    controller:'ProjectListController as projectList',
-  //    templateUrl:'template/list.html',
-  //    resolve: resolveProjects
-  //  })
-  //  .when('/edit/:projectId', {
-  //    controller:'EditProjectController as editProject',
-  //    templateUrl:'template/detail.html',
-  //    resolve: resolveProjects
-  //  })
-  //  .when('/new', {
-  //    controller:'NewProjectController as editProject',
-  //    templateUrl:'template/detail.html',
-  //    resolve: resolveProjects
-  //  })
+  .when('/', {
+    controller:'LandingPageController as itemsList',
+    templateUrl:'app/view/list.html',
+    //resolve: resolveProjects
+  })
+  .when('/contact', {
+    controller:'ContactController as contact',
+    templateUrl:'app/view/contact.html'
+  })
    .otherwise({
      redirectTo:'/'
    });
 })
 
-.controller('ProjectListController', function(projects) {
-//  var projectList = this;
-//  projectList.projects = projects;
-})
+.controller('LandingPageController', 
+  [ 
+  function() {
+  var itemsList = this;
+  console.log('Landing page controller')
+    itemsList.showIt = false;
 
-.controller('NewProjectController', function($location, projects) {
-//  var editProject = this;
-//  editProject.save = function() {
-//      projects.$add(editProject.project).then(function(data) {
-//          $location.path('/');
-//      });
-//  };
-})
+  itemsList.toggleDiv = function() {
+    itemsList.showIt = !itemsList.showIt;
+  }
+}])
 
-.controller('EditProjectController',
- function($location, $routeParams, projects) {
-//    var editProject = this;
-//    var projectId = $routeParams.projectId,
-//        projectIndex;
+.controller('ContactController', 
+  [ 
+  function() {
+  var contact = this;
+  console.log('contact controller')
+}])
 
-//    editProject.projects = projects;
-//    projectIndex = editProject.projects.$indexFor(projectId);
-//    editProject.project = editProject.projects[projectIndex];
 
-//    editProject.destroy = function() {
-//        editProject.projects.$remove(editProject.project).then(function(data) {
-//            $location.path('/');
-//        });
-//    };
+.service('ApiService', [
+  function() {
 
-//    editProject.save = function() {
-//        editProject.projects.$save(editProject.project).then(function(data) {
-//           $location.path('/');
-//        });
-//    };
-});
+  }
+])
+
+;
