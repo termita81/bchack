@@ -71,7 +71,7 @@ angular.module('library', ['ngRoute'])
 				}
 				apiService.requestLocation(locationId)
 					.then(function (result) {
-
+						alert('Request Submitted')
 					}, function (error) {
 
 					})
@@ -214,7 +214,8 @@ angular.module('library', ['ngRoute'])
 					email: signup.email,
 					firstName: signup.firstName,
 					lastName: signup.lastName,
-					fundsAvailable: signup.funds
+					// fundsAvailable: signup.funds
+					fundsAvailable: 10000
 				}
 				userService.signUp(obj)
 					.then(function (newLogin) {
