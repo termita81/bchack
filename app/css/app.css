@@ -34,3 +34,7 @@ main {
 .visible {
   display: block;
 }
+
+a {
+    cursor: pointer;
+}
