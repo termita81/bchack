@@ -55,13 +55,25 @@ $locationProvider.hashPrefix('!');
 var itemsList = [];
  $routeProvider
   .when('/', {
-    controller:'LandingPageController as itemsList',
-    templateUrl:'app/view/list.html',
+    controller:'HomeController as home',
+    templateUrl:'app/view/home.html',
     //resolve: resolveProjects
   })
-  .when('/contact', {
-    controller:'ContactController as contact',
-    templateUrl:'app/view/contact.html'
+  .when('/location', {
+    controller:'LocationController as location',
+    templateUrl:'app/view/location.html'
+  })
+  .when('/auth', {
+    controller:'AuthController as auth',
+    templateUrl:'app/view/auth.html'
+  })
+  .when('/transaction', {
+    controller:'TransactionController as transaction',
+    templateUrl:'app/view/transaction.html'
+  })
+  .when('/user', {
+    controller:'UserController as user',
+    templateUrl:'app/view/user.html'
   })
   .when('/signup', {
     controller:'SignupController as signup',
@@ -72,23 +84,70 @@ var itemsList = [];
    });
 })
 
-.controller('LandingPageController',
-  [
-  function() {
-  var itemsList = this;
-  console.log('Landing page controller')
-    itemsList.showIt = false;
+.controller('HomeController', 
+  [ 'ApiService',
+  function(apiService) {
+  var home = this;
+  var locations = [];
+  home.searchLocation = null;
+  home.searchDimension = null;
 
-  itemsList.toggleDiv = function() {
-    itemsList.showIt = !itemsList.showIt;
+  home.searchLocations = function() {
+    apiService.searchLocations()
+    .then(
+      function(result) { 
+        if (result.data) {
+          console.log(result.data)
+          home.locations = result.data.filter(function(o) {
+            return (!home.searchDimension || o.totalSize >= home.searchDimension)
+            && (!home.searchLocation || o.locale == home.searchLocation);
+          })
+        }})
+      };
+
+  home.totalSize = function(sizeText) {
+    return parseInt(sizeText)
   }
+
+  home.searchLocations();
 }])
 
-.controller('ContactController',
-  [
-  function() {
-  var contact = this;
-  console.log('contact controller')
+.controller('LocationController', 
+[ 'ApiService',
+function(apiService) {
+  var location = this;
+  var locations = [];
+  var currentItem = {};
+  var showEditor = false;
+  apiService.searchLocations()
+  .then(
+    function(result) { 
+      if (result.data) {
+        location.locations = result.data.filter(function(o) {
+          return o.owner.substr(o.owner.search(/#.*$/) + 1) == 'provider@test.com';
+        })
+      }})
+}])
+
+.controller('AuthController', 
+[ 'ApiService',
+function(apiService) {
+  var auth = this;
+  console.log('auth')
+}])
+
+.controller('TransactionController', 
+[ 'ApiService',
+function(apiService) {
+  var transaction = this;
+  console.log('transaction')
+}])
+
+.controller('UserController', 
+[ 'ApiService',
+function(apiService) {
+  var user = this;
+  console.log('user')
 }])
 
 .controller('SignupController',
@@ -98,9 +157,32 @@ var itemsList = [];
   console.log('signup controller')
 }])
 
-.service('ApiService', [
-  function() {
+.service('ApiService', [ '$http',
+  function($http) {
+    var rootUrl = 'http://168.1.144.102:31090/api/';
 
+    this.searchLocations = function() {
+      var url = rootUrl + 'StorageLocation';
+      return $http.get(url);
+    }
+    this.signIn = function() {
+      console.log('signIn')
+    }
+    this.signIn = function() {
+      console.log('signIn')
+    }
+    this.signIn = function() {
+      console.log('signIn')
+    }
+    this.signIn = function() {
+      console.log('signIn')
+    }
+    this.signIn = function() {
+      console.log('signIn')
+    }
+    this.signIn = function() {
+      console.log('signIn')
+    }
   }
 ])
 

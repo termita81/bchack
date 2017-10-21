@@ -1,0 +1,20 @@
+<div class="search-box container theme-showcase">
+    <input type="text" name="location" value="" placeholder="Location"></br>
+    <input type="number" name="dimension" ng-model="home.searchDimension" value="" placeholder="Dimension"></br>
+    <button class="btn" type="submit" name="search-button"
+    ng-click="home.searchLocations()">Search</button>
+</div>
+
+<div class="row search-result container theme-showcase" ng-show="home.locations.length">
+    <ul class="search-list">
+        <div ng-repeat="location in home.locations" class="col-xs-12 col-sm-6 col-md-4">
+            <!-- <img src="http://via.placeholder.com/200x250"> -->
+            <h3>{{location.storageLocationId}}</h3>
+            <p>Location: <span class="detail">{{location.locale}}</span></p>
+            <p>Street Address: <span class="details">{{location.streetAddress}}</span></p>
+            <p>Cost: <span class="details">{{location.costPerPeriod}}/{{location.periodType | lowercase }}</span></p>
+            <p>Total Size: <span class="detail">{{home.totalSize(location.totalSize)}}m<sup>3</sup></span></p>
+            <button class="btn">Request</button>
+        </div>
+    </ul>
+</div>
