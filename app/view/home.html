@@ -15,14 +15,12 @@
     </div>
 
 
-    <div class="search-result container " ng-hide="home.locations.length"
-    style="margin-top: 100px;">
+    <div class="search-result container " ng-hide="home.locations.length">
         <h3 style="color: #fff">No Spaces Found :(</h3>
     </div>
 
 
-    <div class="search-result container " ng-show="home.locations.length"
-    style="margin-top: 100px;">
+    <div class="search-result container " ng-show="home.locations.length">
         <!-- <h3 style="color: #fff">Storage Spaces found:</h3> -->
         <ul class="search-list row">
             <div ng-repeat="location in home.locations" class="col-xs-12 col-sm-6 col-md-4">
