@@ -126,9 +126,7 @@ var itemsList = [];
     })
   }
   home.ownLocation = function(location) {
-    console.log(`${home.user.email}, ${location.owner}`)
-    //return o.owner.substr(o.owner.search(/#.*$/) + 1) == email;
-    return home.user.email === location.owner.substr(location.owner.search(/#.*$/) + 1);
+    return home.user && home.user.email === location.owner.substr(location.owner.search(/#.*$/) + 1);
   }
 
   home.searchLocations();
