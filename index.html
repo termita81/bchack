@@ -29,55 +29,33 @@
                     </button>
                     <a class="navbar-brand" href="#">Our Space</a>
                     </div>
-                    <div id="navbar" class="navbar-collapse collapse in" aria-expanded="true" style="">
+                    <div id="navbar" class="navbar-collapse collapse" aria-expanded="true">
                     <ul class="nav navbar-nav">
                         <!-- <li class="active"><a href="#/">Home</a></li> -->
-                        <!-- <li><a href="#/about">About</a></li> -->
-                        <li><a ng-href="#!contact">Contact</a></li> -->
-                        <!-- <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <li><a ng-href="#!location">Location</a></li>
+                        <li><a ng-href="#!auth">Auth</a></li>
+                        <li><a ng-href="#!transaction">Transaction</a></li>
+                        <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                            onclick="void(0)"
+                            aria-haspopup="true" aria-expanded="false">
+                            <!-- <span class="caret">User</span> -->
+                            User
+                        </a>
                         <ul class="dropdown-menu">
-                            <li><a href="#">Action</a></li>
-                            <li><a href="#">Another action</a></li>
-                            <li><a href="#">Something else here</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li class="dropdown-header">Nav header</li>
-                            <li><a href="#">Separated link</a></li>
-                            <li><a href="#">One more separated link</a></li>
+                            <li><a href="#!profile">Profile</a></li>
+                            <li><a href="#!signOut">Sign out</a></li>
                         </ul>
-                        </li> -->
+                        </li>
                     </ul>
-                    </div><!-- /.nav-collapse -->
+                    </div>
                 </div>
             </nav>
         </header>
 
         <main class="container" role="main">
             <div ng-view></div>
-                <h1>Welcome {{user}}</h1>
-            </div>
-
-            <div class="search-box container theme-showcase">
-                <input type="text" name="location" value="" placeholder="Location"></br>
-                <input type="text" name="dimension" value="" placeholder="Dimension"></br>
-                <button type="submit" name="search-button"
-                  onclick="document.getElementsByClassName('search-result')[0].style.display='block';
-                           document.getElementsByTagName('Input')[0].value='';
-                           document.getElementsByTagName('Input')[1].value=''">Search</button>
-            </div>
-
-            <div class="search-result container theme-showcase" style="display: none;">
-                <ul class="search-list">
-                    <div>
-                      <img src="http://via.placeholder.com/200x250">
-                      <h3>Space 1</h3>
-                      <p>Dimension: <span class="detail">200 x 250 x 3500</span>
-                        <br>Location: <span class="detail">Melbourne CBD</span>
-                        <br>Items: <span class="details">Anything</span>
-                      </p>
-                      <button>Request</button>
-                    </div>
-                </ul>
+                <!-- <h1>Welcome {{user}}</h1> -->
             </div>
         </main>
 
