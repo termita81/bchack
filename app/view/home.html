@@ -32,7 +32,8 @@
                 <p>Street Address: <span class="details">{{location.streetAddress}}</span></p>
                 <p>Cost: <span class="details">{{location.costPerPeriod}}/{{location.periodType | lowercase }}</span></p>
                 <p>Total Size: <span class="detail">{{home.totalSize(location.totalSize)}}m<sup>3</sup></span></p>
-                <button class="btn btn-primary" ng-click="home.request(location.storageLocationId)">Request</button>
+                <button class="btn btn-primary" ng-disabled="home.ownLocation(location)"
+                    ng-click="home.request(location.storageLocationId)">Request</button>
             </div>
         </ul>
     </div>

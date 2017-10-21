@@ -89,13 +89,14 @@ var itemsList = [];
 })
 
 .controller('HomeController', 
-  [ 'ApiService',
-  function(apiService) {
+  [ 'ApiService', 'UserService', '$location',
+  function(apiService, userService, $location) {
   var home = this;
   var locations = [];
   home.searchLocation = null;
   home.searchDimension = null;
   home.suburbs = ["Melbourne CBD", "South Melbourne"];
+  home.user = userService.getUser();
 
   home.searchLocations = function() {
     apiService.searchLocations()
@@ -114,12 +115,20 @@ var itemsList = [];
   }
 
   home.request = function(locationId) {
+    if (!home.user) {
+      $location.path('/signin')
+    }
     apiService.requestLocation(locationId)
     .then(function(result) {
 
     }, function(error) {
       
     })
+  }
+  home.ownLocation = function(location) {
+    console.log(`${home.user.email}, ${location.owner}`)
+    //return o.owner.substr(o.owner.search(/#.*$/) + 1) == email;
+    return home.user.email === location.owner.substr(location.owner.search(/#.*$/) + 1);
   }
 
   home.searchLocations();
@@ -188,13 +197,6 @@ function(apiService, userService, $location) {
 [ '$rootScope', 'UserService',
 function( $rootScope, userService) {
   var header = this;
-  // header.user = null;
-  // header.email = null;    
-  // if (document.cookie !== "") {
-  //   header.user = JSON.parse(document.cookie)
-  //   header.email = header.user.email
-  //   $rootScope.user = header.user;
-  // }
   $rootScope.$on("$routeChangeSuccess", function() {
     var navbar = $('#navbar.in');
     if (navbar && navbar.length == 1) {
@@ -280,6 +282,12 @@ function(userService, $location) {
   if (!userService.getUser()) {
     $location.path('/signin')
   }
+  transaction.load = function() {
+    transaction.transactions = [{
+
+    },];
+  }
+  transaction.load();
 }])
 
 // .controller('UserController', 

@@ -3,30 +3,20 @@
 
     <h1>My Transactions</h1>
 
-    <table>
-      <tr>
-        <th>Transaction</br>ID</th>
-        <th>Date</th>
-        <th>User</th>
-        <th>Status</th>
-      </tr>
-      <tr>
-        <td>0001</td>
-        <td>20-01-17</td>
-        <td>Mike</td>
-        <td><div>Accepted</div></td>
-      </tr>
-      <tr>
-        <td>0002</td>
-        <td>28-01-17</td>
-        <td>Jane</td>
-        <td><div>Declined</div></td>
-      </tr>
-      <tr>
-        <td>0003</td>
-        <td>02-04-17</td>
-        <td>Paul</td>
-        <td><div>Pending</div></td>
-      </tr>
-    </table>
+    <!-- <div class="row search-result container theme-showcase" ng-hide="location.locations.length">
+        
+    </div> -->
+    
+    <div class="row" ng-repeat="tran in transaction.transactions"
+        ng-hide="transaction.transactions">
+        <h2 style="color: #fff">No transaction</h3>
+    </div>
+
+    <div class="row" ng-repeat="tran in transaction.transactions"
+    ng-show="transaction.transactions">
+        <div class="col-xs-3">1</div>
+        <div class="col-xs-3">2</div>
+        <div class="col-xs-3">3</div>
+        <div class="col-xs-3">4</div>
+    </div>
 </div>
