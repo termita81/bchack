@@ -6,7 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <base href="/">
 
-        <title>Library of Things</title>
+        <title>Our Space</title>
         <script src="vendor/js/jquery.js"></script>
         <script src="vendor/js/bootstrap.js"></script>
         <script src="vendor/js/angular.js"></script>
@@ -27,7 +27,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="#">Our title</a>
+                    <a class="navbar-brand" href="#">Our Space</a>
                     </div>
                     <div id="navbar" class="navbar-collapse collapse in" aria-expanded="true" style="">
                     <ul class="nav navbar-nav">
@@ -54,8 +54,38 @@
 
         <main class="container" role="main">
             <div ng-view></div>
+                <h1>Welcome {{user}}</h1>
+            </div>
+
+            <div class="search-box container theme-showcase">
+                <input type="text" name="location" value="" placeholder="Location"></br>
+                <input type="text" name="dimension" value="" placeholder="Dimension"></br>
+                <button type="submit" name="search-button"
+                  onclick="document.getElementsByClassName('search-result')[0].style.display='block';
+                           document.getElementsByTagName('Input')[0].value='';
+                           document.getElementsByTagName('Input')[1].value=''">Search</button>
+            </div>
+
+            <div class="search-result container theme-showcase" style="display: none;">
+                <ul class="search-list">
+                    <div>
+                      <img src="http://via.placeholder.com/200x250">
+                      <h3>Space 1</h3>
+                      <p>Dimension: <span class="detail">200 x 250 x 3500</span>
+                        <br>Location: <span class="detail">Melbourne CBD</span>
+                        <br>Items: <span class="details">Anything</span>
+                      </p>
+                      <button>Request</button>
+                    </div>
+                </ul>
+            </div>
+
+            <div ng-view></div>
         </main>
 
         <script src="app/js/app.js"></script>
+        <script type="text/javascript">
+
+        </script>
     </body>
 </html>
