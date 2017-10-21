@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <base href="/">
+        <base href=".">
 
         <title>Our Space</title>
         <script src="vendor/js/jquery.js"></script>
@@ -54,26 +54,31 @@
 
         <main class="container" role="main">
             <div ng-view></div>
-                <h1>Welcome {{user}}</h1>
+                <h3>Search for a Storage Space</h3>
             </div>
 
             <div class="search-box container theme-showcase">
-                <input type="text" name="location" value="" placeholder="Location"></br>
+                <!-- <input type="text" name="location" value="" placeholder="Location"></br> -->
+                <select class="location-list">
+                    <option value="" disabled selected>Select Location</option>
+                    <option value="south-melbourne">South Melbourne</option>
+                    <option value="melbourne-cbd">Melbourne CBD</option>
+                </select></br>
                 <input type="text" name="dimension" value="" placeholder="Dimension"></br>
                 <button type="submit" name="search-button"
                   onclick="document.getElementsByClassName('search-result')[0].style.display='block';
-                           document.getElementsByTagName('Input')[0].value='';
-                           document.getElementsByTagName('Input')[1].value=''">Search</button>
+                           document.getElementsByClassName('location-list')[0].options.value='';
+                           document.getElementsByTagName('Input')[0].value='';">Search</button>
             </div>
 
             <div class="search-result container theme-showcase" style="display: none;">
                 <ul class="search-list">
                     <div>
                       <img src="http://via.placeholder.com/200x250">
-                      <h3>Space 1</h3>
-                      <p>Dimension: <span class="detail">200 x 250 x 3500</span>
-                        <br>Location: <span class="detail">Melbourne CBD</span>
-                        <br>Items: <span class="details">Anything</span>
+                      <h3>Name: {{Name}}</h3>
+                      <p>Dimension: <span class="detail">{{Dimension}}</span>
+                        <br>Location: <span class="detail">{{Location}}</span>
+                        <br>Items: <span class="details">{{Items}}</span>
                       </p>
                       <button>Request</button>
                     </div>
