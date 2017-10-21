@@ -63,13 +63,17 @@ var itemsList = [];
     controller:'ContactController as contact',
     templateUrl:'app/view/contact.html'
   })
+  .when('/signup', {
+    controller:'SignupController as signup',
+    templateUrl:'app/view/signup.html'
+  })
    .otherwise({
      redirectTo:'/'
    });
 })
 
-.controller('LandingPageController', 
-  [ 
+.controller('LandingPageController',
+  [
   function() {
   var itemsList = this;
   console.log('Landing page controller')
@@ -80,13 +84,19 @@ var itemsList = [];
   }
 }])
 
-.controller('ContactController', 
-  [ 
+.controller('ContactController',
+  [
   function() {
   var contact = this;
   console.log('contact controller')
 }])
 
+.controller('SignupController',
+  [
+  function() {
+  var contact = this;
+  console.log('signup controller')
+}])
 
 .service('ApiService', [
   function() {
