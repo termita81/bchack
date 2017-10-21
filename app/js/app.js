@@ -332,7 +332,8 @@ function(userService, $location) {
     this.signIn = function(email) {
       return apiService.signIn(email)
       .then(function(result) {
-        document.cookie = JSON.stringify(result.data)
+				window.localStorage.setItem('user', JSON.stringify(result.data))
+        // document.cookie = JSON.stringify(result.data)
         return user = result.data;
       })
     }
@@ -343,13 +344,16 @@ function(userService, $location) {
       })
     }
     this.signOut = function() {
-      user = null;
-      document.cookie = "";
+			user = null;
+			window.localStorage.setItem('user', '')
+      // document.cookie = "";
       $location.path('/')
     }
     this.getUser = function() {
       if (document.cookie != '') {
-        user = JSON.parse(document.cookie)
+				user = JSON.parse(window.localStorage.getItem('user'))
+				console.log(user)
+        // user = JSON.parse(document.cookie)
       }
       return user;
     }
