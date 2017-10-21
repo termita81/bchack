@@ -6,10 +6,10 @@
         
         <select class="location-list" ng-model="home.searchLocation"
             ng-options="suburb for suburb in home.suburbs">
-            <option value="">Select Suburb</option>
+            <option value="">Suburb</option>
         </select><br>
         <!-- <label  style="color: #fff"for="dimension">Dimension</label><br> -->
-        <input type="number" name="dimension" id="dimension" ng-model="home.searchDimension" value="" placeholder="Dimension"></br>
+        <input type="number" name="dimension" id="dimension" ng-model="home.searchDimension" value="" placeholder="Minimum Size (m3)"></br>
         <button class="btn btn-primary" type="submit" name="search-button"
         ng-click="home.searchLocations()">Search</button>
     </div>
@@ -17,13 +17,13 @@
 
     <div class="search-result container " ng-hide="home.locations.length"
     style="margin-top: 100px;">
-        <h3 style="color: #fff">No Storage Space found</h3>
+        <h3 style="color: #fff">No Spaces Found :(</h3>
     </div>
 
 
     <div class="search-result container " ng-show="home.locations.length"
     style="margin-top: 100px;">
-        <h3 style="color: #fff">Storage Spaces found:</h3>
+        <!-- <h3 style="color: #fff">Storage Spaces found:</h3> -->
         <ul class="search-list row">
             <div ng-repeat="location in home.locations" class="col-xs-12 col-sm-6 col-md-4">
                 <!-- <img src="http://via.placeholder.com/200x250"> -->
