@@ -30,7 +30,10 @@ a {
     font-size: 40px;
 }
 
-.sign-up > form > * {
+.sign-up > form > *,
+input,
+select,
+option {
     margin-top: 10px;
     border-radius: 10px;
     width: 200px;
@@ -66,7 +69,7 @@ a {
 
 .search-box > select {
   width: 174px;
-  height: 26px;
+  /* height: 26px; */
   text-align: center;
 }
 

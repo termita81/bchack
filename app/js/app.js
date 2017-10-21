@@ -63,9 +63,17 @@ var itemsList = [];
     controller:'LocationController as location',
     templateUrl:'app/view/location.html'
   })
-  .when('/auth', {
-    controller:'AuthController as auth',
-    templateUrl:'app/view/auth.html'
+  .when('/signin', {
+    controller:'SignInController as signin',
+    templateUrl:'app/view/signin.html'
+  })
+  .when('/signout', {
+    controller:'SignOutController as signout',
+    template:'<p>Please wait</p>'
+  })
+  .when('/signup', {
+    controller:'SignUpController as signup',
+    templateUrl:'app/view/signup.html'
   })
   .when('/transaction', {
     controller:'TransactionController as transaction',
@@ -74,10 +82,6 @@ var itemsList = [];
   .when('/user', {
     controller:'UserController as user',
     templateUrl:'app/view/user.html'
-  })
-  .when('/signup', {
-    controller:'SignupController as signup',
-    templateUrl:'app/view/signup.html'
   })
    .otherwise({
      redirectTo:'/'
@@ -91,13 +95,13 @@ var itemsList = [];
   var locations = [];
   home.searchLocation = null;
   home.searchDimension = null;
+  home.suburbs = ["Melbourne CBD", "South Melbourne"];
 
   home.searchLocations = function() {
     apiService.searchLocations()
     .then(
       function(result) { 
         if (result.data) {
-          console.log(result.data)
           home.locations = result.data.filter(function(o) {
             return (!home.searchDimension || o.totalSize >= home.searchDimension)
             && (!home.searchLocation || o.locale == home.searchLocation);
@@ -109,53 +113,181 @@ var itemsList = [];
     return parseInt(sizeText)
   }
 
+  home.request = function(locationId) {
+    apiService.requestLocation(locationId)
+    .then(function(result) {
+
+    }, function(error) {
+      
+    })
+  }
+
   home.searchLocations();
 }])
 
 .controller('LocationController', 
-[ 'ApiService',
-function(apiService) {
+[ 'ApiService', 'UserService', '$location',
+function(apiService, userService, $location) {
   var location = this;
+  if (!userService.getUser()) {
+    $location.path('/signin')
+  }
   var locations = [];
-  var currentItem = {};
-  var showEditor = false;
-  apiService.searchLocations()
-  .then(
-    function(result) { 
-      if (result.data) {
-        location.locations = result.data.filter(function(o) {
-          return o.owner.substr(o.owner.search(/#.*$/) + 1) == 'provider@test.com';
-        })
-      }})
+  location.currentItem = {};
+  location.showEditor = false;
+  location.suburbs = ["Melbourne CBD", "South Melbourne"];
+  function load() {
+    apiService.searchLocations()
+    .then(
+      function(result) { 
+        if (result.data) {
+          var email = userService.getUser().email;
+          location.locations = result.data.filter(function(o) {
+            return o.owner.substr(o.owner.search(/#.*$/) + 1) == email;
+          })
+        }})
+  }
+
+  location.add = function() {
+    location.showEditor = true;
+  }
+  location.cancelAdd = function() {
+    location.showEditor = false;
+  }
+  function newId() {
+    return userService.getUser().email + Date.now()
+  }
+  location.submitNew = function() {
+    apiService.createLocation(
+    {
+      "$class": "org.stashit.StorageLocation",
+      "storageLocationId": newId(),
+      "costPerPeriod": location.currentItem.costPerPeriod,
+      "minLendingPeriod": location.currentItem.minLendingPeriod,
+      "periodType": "WEEK",
+      "totalSize": location.currentItem.totalSize,
+      "streetAddress": location.currentItem.streetAddress,
+      "locale": location.currentItem.suburb,
+      "owner": "resource:org.stashit.User#" + userService.getUser().email
+    })
+    .then(function(result) {
+      location.currentItem = {};
+      location.showEditor = false;
+      load();
+    })
+  }
+  
+  location.totalSize = function(sizeText) {
+      return parseInt(sizeText)
+    }
+
+    load();
 }])
 
-.controller('AuthController', 
-[ 'ApiService',
-function(apiService) {
-  var auth = this;
-  console.log('auth')
+.controller('HeaderController', 
+[ '$rootScope', 'UserService',
+function( $rootScope, userService) {
+  var header = this;
+  // header.user = null;
+  // header.email = null;    
+  // if (document.cookie !== "") {
+  //   header.user = JSON.parse(document.cookie)
+  //   header.email = header.user.email
+  //   $rootScope.user = header.user;
+  // }
+  $rootScope.$on("$routeChangeSuccess", function() {
+    var navbar = $('#navbar.in');
+    if (navbar && navbar.length == 1) {
+      navbar[0].classList.remove('in')
+    }
+    header.user = userService.getUser();
+    if (header.user) {
+       $("#signin").hide();
+       $("#user").show();
+       $("#username").text(header.user.firstName + " " + header.user.lastName);
+     } else {
+       $("#signin").show();
+       $("#user").hide();
+     }
+  })
+}])
+
+.controller('SignInController', 
+[ 'UserService', '$location',
+function(userService, $location) {
+  var signin = this;
+  signin.email = null;
+  signin.error = null;
+  signin.signIn = function() {
+    if (userService.getUser()) {
+      $location.path('/')
+    }
+    userService.signIn(signin.email)
+    .then(function(result) {
+      signin.error = null;
+      $location.path('/')
+    }, function(error) {
+      signin.error = 'Error signing in';
+      alert('Error signing in!')
+    })
+  }
+}])
+
+.controller('SignOutController', 
+[ 'UserService', '$location',
+function(userService, $location) {
+    userService.signOut()
+}])
+
+.controller('SignUpController', 
+[ 'UserService', '$location',
+function(userService, $location) {
+  var signup = this;
+  signup.email = null;
+  signup.firstName = null;
+  signup.lastName = null;
+  signup.funds = null;
+  signup.signup = function() {
+    if (userService.getUser()) {
+      $location.path('/')
+    }
+    var obj = { 
+      "$class": "org.stashit.User",
+      email: signup.email, 
+      firstName: signup.firstName, 
+      lastName: signup.lastName, 
+      fundsAvailable: signup.funds
+    }
+    userService.signUp(obj)
+    .then(function(newLogin) {
+      userService.signIn(newLogin.email)
+      .then(function(result) {
+        signin.error = null;
+        $location.path('/')
+      }, function(error) {
+        alert('Error signing in with newly created account!')
+      })
+    }, function(error) {
+      alert('Error signing up!')
+    })
+  }
 }])
 
 .controller('TransactionController', 
-[ 'ApiService',
-function(apiService) {
+[ 'UserService', '$location',
+function(userService, $location) {
   var transaction = this;
-  console.log('transaction')
+  if (!userService.getUser()) {
+    $location.path('/signin')
+  }
 }])
 
-.controller('UserController', 
-[ 'ApiService',
-function(apiService) {
-  var user = this;
-  console.log('user')
-}])
-
-.controller('SignupController',
-  [
-  function() {
-  var contact = this;
-  console.log('signup controller')
-}])
+// .controller('UserController', 
+// [ 'ApiService',
+// function(apiService) {
+//   var user = this;
+//   console.log('user')
+// }])
 
 .service('ApiService', [ '$http',
   function($http) {
@@ -165,25 +297,56 @@ function(apiService) {
       var url = rootUrl + 'StorageLocation';
       return $http.get(url);
     }
-    this.signIn = function() {
-      console.log('signIn')
+    this.createLocation = function(obj) {
+      var url = rootUrl + 'StorageLocation';
+      return $http.post(url, obj);
     }
-    this.signIn = function() {
-      console.log('signIn')
+    this.requestLocation = function() {
+      var url = rootUrl + 'StorageLocation';
+      return $http.get(url);
     }
-    this.signIn = function() {
-      console.log('signIn')
+    this.signIn = function(email) {
+      var url = rootUrl + 'User/' + email;
+      return $http.get(url);
     }
-    this.signIn = function() {
-      console.log('signIn')
+    this.signUp = function(obj) {
+      var url = rootUrl + 'User'
+      return $http.post(url, obj);
     }
-    this.signIn = function() {
-      console.log('signIn')
-    }
-    this.signIn = function() {
-      console.log('signIn')
-    }
+    // this.signOut = function() {
+    //   console.log('signOut')
+    // }
   }
 ])
 
+.service('UserService', [
+  'ApiService', '$location', function(apiService, $location) {
+    var user = null;
+
+    this.signIn = function(email) {
+      return apiService.signIn(email)
+      .then(function(result) {
+        document.cookie = JSON.stringify(result.data)
+        return user = result.data;
+      })
+    }
+    this.signUp = function(obj) {
+      return apiService.signUp(obj)
+      .then(function(result) {
+        return user = result.data;
+      })
+    }
+    this.signOut = function() {
+      user = null;
+      document.cookie = "";
+      $location.path('/')
+    }
+    this.getUser = function() {
+      if (document.cookie != '') {
+        user = JSON.parse(document.cookie)
+      }
+      return user;
+    }
+  }
+])
 ;

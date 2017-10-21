@@ -1,16 +1,20 @@
 
-<div class="sign-up container theme-showcase">
+<div class="sign-up container ">
+        
+    <h3>Welcome to </br><span>OurSpace</span><h3>
+    <h5>Please Enter Details</h5>
 
-  <h3>Welcome to </br><span>OurSpace</span><h3>
-  <h5>Please Sign In</h5>
+    <form>
+        <input type="text" ng-model="signup.email" name="email" value="" placeholder="E-mail"></br>
+        <input type="text" ng-model="signup.firstName" name="firstname" value="" placeholder="First Name"></br>
+        <input type="text" ng-model="signup.lastName" name="lastname" value="" placeholder="Last Name"></br>
+        <input type="text" ng-model="signup.funds" name="funds" value="" placeholder="Funds"></br>
+    <!-- <input type="password" name="password" value="" placeholder="Password"></br> -->
+    <button type="button" name="button"
+        ng-click="signup.signup()">Sign Up</button>
+    </form>
 
-  <form class="" action="" method="">
-    <input type="text" name="username" value="" placeholder="Username"></br>
-    <input type="password" name="password" value="" placeholder="Password"></br>
-    <button type="submit" name="button"
-      onclick="">Sign In</button>
-  </form>
-
-  <a href="#">Create a New Account</a>
+    <a href="#!signin">Sign In</a>
 
 </div>
+        

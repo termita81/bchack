@@ -1,21 +1,38 @@
 
-    <div class="search-box container theme-showcase">
-        <input type="text" name="location" ng-model="home.searchLocation" value="" placeholder="Location"></br>
-        <input type="number" name="dimension" ng-model="home.searchDimension" value="" placeholder="Dimension"></br>
-        <button class="btn" type="submit" name="search-button"
+    <div class="search-box container ">
+            <h3 style="color: #fff">Search for a Storage Space</h3>
+        <!-- <label  style="color: #fff"for="location">Location</label><br> -->
+        <!-- <input type="text" name="location" id="location" ng-model="home.searchLocation" value="" placeholder="Location"></br> -->
+        
+        <select class="location-list" ng-model="home.searchLocation"
+            ng-options="suburb for suburb in home.suburbs">
+            <option value="">Select Suburb</option>
+        </select><br>
+        <!-- <label  style="color: #fff"for="dimension">Dimension</label><br> -->
+        <input type="number" name="dimension" id="dimension" ng-model="home.searchDimension" value="" placeholder="Dimension"></br>
+        <button class="btn btn-primary" type="submit" name="search-button"
         ng-click="home.searchLocations()">Search</button>
     </div>
 
-    <div class="row search-result container theme-showcase" ng-show="home.locations.length">
-        <ul class="search-list">
+
+    <div class="search-result container " ng-hide="home.locations.length"
+    style="margin-top: 100px;">
+        <h3 style="color: #fff">No Storage Space found</h3>
+    </div>
+
+
+    <div class="search-result container " ng-show="home.locations.length"
+    style="margin-top: 100px;">
+        <h3 style="color: #fff">Storage Spaces found:</h3>
+        <ul class="search-list row">
             <div ng-repeat="location in home.locations" class="col-xs-12 col-sm-6 col-md-4">
                 <!-- <img src="http://via.placeholder.com/200x250"> -->
-                <h3>{{location.storageLocationId}}</h3>
+                <h3 style="overflow-wrap: break-word;">{{location.storageLocationId}}</h3>
                 <p>Location: <span class="detail">{{location.locale}}</span></p>
                 <p>Street Address: <span class="details">{{location.streetAddress}}</span></p>
                 <p>Cost: <span class="details">{{location.costPerPeriod}}/{{location.periodType | lowercase }}</span></p>
                 <p>Total Size: <span class="detail">{{home.totalSize(location.totalSize)}}m<sup>3</sup></span></p>
-                <button class="btn">Request</button>
+                <button class="btn btn-primary" ng-click="home.request(location.storageLocationId)">Request</button>
             </div>
         </ul>
     </div>

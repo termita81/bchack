@@ -17,9 +17,9 @@
         <link rel="stylesheet" href="app/css/app.css">
     </head>
     <body>
-        <header>
+        <header >
             <nav class="navbar navbar-inverse navbar-fixed-top">
-                <div class="container">
+                <div class="container" ng-controller="HeaderController">
                     <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
                         <span class="sr-only">Toggle navigation</span>
@@ -32,20 +32,18 @@
                     <div id="navbar" class="navbar-collapse collapse" aria-expanded="true">
                     <ul class="nav navbar-nav">
                         <!-- <li class="active"><a href="#/">Home</a></li> -->
-                        <li><a ng-href="#!location">Location</a></li>
-                        <li><a ng-href="#!auth">Auth</a></li>
-                        <li><a ng-href="#!transaction">Transaction</a></li>
-                        <li class="dropdown">
-                        <a class="dropdown-toggle" data-toggle="dropdown" role="button"
-                            onclick="void(0)"
-                            aria-haspopup="true" aria-expanded="false">
-                            <!-- <span class="caret">User</span> -->
-                            User
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li><a href="#!profile">Profile</a></li>
-                            <li><a href="#!signOut">Sign out</a></li>
-                        </ul>
+                        <li><a ng-href="#!location">Locations</a></li>
+                        <li><a ng-href="#!transaction">Transactions</a></li>
+                        <li id="signin"><a ng-href="#!signin" >Sign In</a></li>
+                        <li id="user" class="dropdown" >
+                            <a class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                aria-haspopup="true" aria-expanded="false">
+                                User: <span id="username"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <!-- <li><a href="#!profile">Profile</a></li> -->
+                                <li><a ng-href="#!signout">Sign Out</a></li>
+                            </ul>
                         </li>
                     </ul>
                     </div>
@@ -55,11 +53,8 @@
 
         <main class="container" role="main">
             <div ng-view></div>
-                <h3>Search for a Storage Space</h3>
-            </div>
 
-            <div class="search-box container theme-showcase">
-                <!-- <input type="text" name="location" value="" placeholder="Location"></br> -->
+            <!-- <div class="search-box container ">
                 <select class="location-list">
                     <option value="" disabled selected>Select Location</option>
                     <option value="south-melbourne">South Melbourne</option>
@@ -72,7 +67,7 @@
                            document.getElementsByTagName('Input')[0].value='';">Search</button>
             </div>
 
-            <div class="search-result container theme-showcase" style="display: none;">
+            <div class="search-result container " style="display: none;">
                 <ul class="search-list">
                     <div>
                       <img src="http://via.placeholder.com/200x250">
@@ -84,7 +79,7 @@
                       <button>Request</button>
                     </div>
                 </ul>
-            </div>
+            </div> -->
         </main>
 
         <script src="app/js/app.js"></script>
