@@ -75,6 +75,10 @@ var itemsList = [];
     controller:'UserController as user',
     templateUrl:'app/view/user.html'
   })
+  .when('/signup', {
+    controller:'SignupController as signup',
+    templateUrl:'app/view/signup.html'
+  })
    .otherwise({
      redirectTo:'/'
    });
@@ -146,6 +150,12 @@ function(apiService) {
   console.log('user')
 }])
 
+.controller('SignupController',
+  [
+  function() {
+  var contact = this;
+  console.log('signup controller')
+}])
 
 .service('ApiService', [ '$http',
   function($http) {

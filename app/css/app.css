@@ -7,13 +7,67 @@ main.container {
     margin-top: 80px;
 }
 
-.search-box {
-    height: 100px;
-    /*border: 1px solid black;*/
+a {
+    cursor: pointer;
+}
+
+/* */
+/* Sign up Page CSS */
+
+.sign-up {
+    margin: 0 auto;
+    text-align: center;
+}
+
+.sign-up > h3, h5 {
+    color: white;
+}
+
+.sign-up > h3 {
+    font-weight: bold;
+}
+.sign-up > h3 > span {
+    font-size: 40px;
+}
+
+.sign-up > form > * {
+    margin-top: 10px;
+    border-radius: 10px;
+    width: 200px;
+    height: 50px;
+    padding: 10px;
+    box-shadow: 3px 3px black;
+}
+
+.sign-up > form > button {
+    background-color: #a4aabb;
+    color: white;
+    font-weight: bold;
+    font-size: 1.5em;
     margin-bottom: 10px;
 }
+
+.sign-up > a {
+    color: white;
+    text-decoration: none;
+}
+
+/* */
+/* Search Page CSS */
+
+.search-box {
+    height: 100px;
+    margin-bottom: 10px;
+}
+
 .search-box > * {
     margin-top: 5px;
+}
+
+.search-box > select {
+  width: 174px;
+  height: 26px;
+  text-align: center;
 }
 
 .search-result > ul {
@@ -43,10 +97,4 @@ main.container {
     margin-top: 0px;
 }
 
-.visible {
-  display: block;
-}
-
-a {
-    cursor: pointer;
-}
+/* */
