@@ -26,7 +26,7 @@
 </div>
 
 <div class="row search-result container theme-showcase" ng-show="location.locations.length && !location.showEditor">
-        <h3 style="color: #fff">Existing locations</h3>
+        <h3 style="color: #fff">My Locations</h3>
     <ul class="search-list">
         <div ng-repeat="item in location.locations" class="col-xs-12 col-sm-6 col-md-4">
             <!-- <img src="http://via.placeholder.com/200x250"> -->
@@ -35,8 +35,8 @@
             <p>Street Address: <span class="details">{{item.streetAddress}}</span></p>
             <p>Cost: <span class="details">{{item.costPerPeriod}}/{{item.periodType | lowercase }}</span></p>
             <p>Total Size: <span class="detail">{{location.totalSize(item.totalSize)}}m<sup>3</sup></span></p>
-            <button class="btn btn-info" disabled>Edit</button>
-            <button class="btn btn-danger" disabled>Delete</button>
+            <!-- <button class="btn btn-info" disabled>Edit</button> -->
+            <button ng-click="location.remove(item)" class="btn btn-danger">Remove</button>
         </div>
     </ul>
 </div>
